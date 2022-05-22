@@ -15,6 +15,7 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess
 
         public virtual DbSet<Entities.Currency> Currencies { get; set; }
 
+        public virtual DbSet<Entities.Transaction> Transactions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //            if (!optionsBuilder.IsConfigured)
@@ -30,6 +31,11 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess
             modelBuilder.Entity<Entities.Currency>(entity =>
             {
                 entity.ToTable("currencies");
+            });
+
+            modelBuilder.Entity<Entities.Transaction>(entity =>
+            {
+                entity.ToTable("transactions");
             });
 
             OnModelCreatingPartial(modelBuilder);

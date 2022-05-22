@@ -10,11 +10,12 @@ namespace Exchange.Application.Results
 
         public string QuoteUrl { get;  }
 
-
-        public CurrencyResult(string currencyName, string quoteUrl)
+        public Decimal TransactionLimit { get;  }
+        public CurrencyResult(string currencyName, string quoteUrl, Decimal transactionLimit )
         {
             CurrencyName = currencyName;
             QuoteUrl = quoteUrl;
+            TransactionLimit = transactionLimit;
         }
     }
 }

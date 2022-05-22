@@ -8,7 +8,9 @@ namespace Exchange.Domain.Transactions
     {
         public string UserId { get; }
 
-        public Decimal CurrencyAmmount { get; }
+        public Decimal Amount { get; }
+
+        public string CurrencyName { get; set; }
 
         public DateTime DateTime { get; }
     }

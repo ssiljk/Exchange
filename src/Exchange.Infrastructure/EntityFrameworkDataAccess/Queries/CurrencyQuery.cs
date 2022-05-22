@@ -22,9 +22,9 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Queries
             Entities.Currency currency = await _context
                                               .Currencies
                                               .FirstOrDefaultAsync(c => c.Name == currencyName);
-
+            //todo catch exception of currency not found
             CurrencyResult currencyResult = new CurrencyResult
-                                            (currency.Name, currency.Url);
+                                            (currency.Name, currency.Url, currency.MaxLimit);
             return currencyResult;
         }
 

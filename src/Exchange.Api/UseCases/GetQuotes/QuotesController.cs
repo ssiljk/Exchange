@@ -23,7 +23,8 @@ namespace Exchange.Api.UseCases.GetQuotes
         {
             var quote = await _bankApi.Get(currencyName);
 
-            return new ObjectResult(quote);
+           // return new ObjectResult(quote);
+           return Ok(quote);
         }
 
     }

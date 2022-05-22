@@ -9,6 +9,7 @@ using Exchange.Domain.Quotes;
 using Exchange.Application.Queries;
 using Exchange.Application.ExternalApis;
 using System.Text.Json;
+using System.Globalization;
 
 namespace Exchange.Infrastructure.ExternalApis
 {
@@ -42,12 +43,35 @@ namespace Exchange.Infrastructure.ExternalApis
             Quote quote = new Quote();
             quote.CurrencyName = currencyResult.CurrencyName;
             quote.DateTime = DateTime.Now;
+            quote.TransactionLimit = currencyResult.TransactionLimit;
             if (response.IsSuccessStatusCode)
             {
+                CultureInfo formatProvider;
+                formatProvider = new CultureInfo("en-EN");
+                //formatProvider = new CultureInfo("fr-FR");
                 using var responseStream = await response.Content.ReadAsStreamAsync();
                 string[] bankApiQuoteResp = await JsonSerializer.DeserializeAsync<string[]>(responseStream);
-                quote.SaleValue = Convert.ToDecimal(bankApiQuoteResp[1]);
-                
+                try
+                {
+                    quote.SaleValue = Convert.ToDecimal(bankApiQuoteResp[1], formatProvider);
+                }
+                catch (System.OverflowException)
+                {
+                    System.Console.WriteLine(
+                        "The conversion from string to decimal overflowed.");
+                }
+                catch (System.FormatException)
+                {
+                    System.Console.WriteLine(
+                        "The string is not formatted as a decimal.");
+                }
+                catch (System.ArgumentNullException)
+                {
+                    System.Console.WriteLine(
+                        "The string is null.");
+                }
+
+
             }
             return quote;
         }

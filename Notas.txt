@@ -1,0 +1,37 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=BDPRUEBA;Trusted_Connection=True"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+ userId=jl77071?currencyName=dolar?amountPesos=10000
+ 
+ 
+ for debugging 
+ {
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Debug",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+
+for developing
+
+ "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
