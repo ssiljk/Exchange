@@ -10,7 +10,7 @@ namespace Exchange.Domain.Transactions
 
         public Decimal Amount { get; }
 
-        public string CurrencyName { get; set; }
+        public string CurrencyName { get; }
 
         public DateTime DateTime { get; }
     }

@@ -12,5 +12,7 @@ namespace Exchange.Application.Results
         public Decimal CurrencyAmmount { get; set; }
 
         public DateTime DateTime { get; set; }
+
+     
     }
 }
