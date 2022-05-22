@@ -24,7 +24,7 @@ namespace Exchange.Api.UseCases.BuyCurrencies
                                               [FromQuery] Decimal amountPesos)
         {
             var buyResult = await _buyCurrency.Buy(userId, currencyName, amountPesos);
-            return Ok(buyResult);
+            return Created("creado", buyResult);
         }
     }
 }

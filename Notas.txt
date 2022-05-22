@@ -14,6 +14,8 @@
 
  userId=jl77071?currencyName=dolar?amountPesos=10000
  
+ ?userId=usuario1&currencyName=dolar?amountPesos=1000
+ 
  
  for debugging 
  {
@@ -35,3 +37,9 @@ for developing
       "Microsoft.Hosting.Lifetime": "Information"
     }
   },
+  
+  Todo
+  Crear el filtro para las exceptions
+  manejar las exepciones
+  Incluir el logger con serilog
+  

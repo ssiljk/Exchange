@@ -6,6 +6,7 @@ namespace Exchange.Application.Results
 {
     public class BuyResult
     {
+        public int Id { get; set; }
         public string UserId { get; set; }
 
         public string CurrencyName { get; set; }

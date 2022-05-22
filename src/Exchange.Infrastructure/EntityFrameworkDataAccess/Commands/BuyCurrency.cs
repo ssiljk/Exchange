@@ -40,8 +40,12 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Commands
                                       DateTime.Now
                                      ) ;
 
-            var transactionResult = await _transactionRepository.AddTransaction(transaction);
-            return (new BuyResult { UserId = userId, CurrencyAmmount = transactionAmount, CurrencyName = currencyName, DateTime = transaction.DateTime });
+            var insertedTransactionId = await _transactionRepository.InsertTransaction(transaction);
+            return (new BuyResult {Id = insertedTransactionId,
+                                   UserId = userId,
+                                   CurrencyAmmount = transactionAmount,
+                                   CurrencyName = currencyName,
+                                   DateTime = transaction.DateTime });
         }
     }
 }

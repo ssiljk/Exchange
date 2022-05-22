@@ -11,6 +11,6 @@ namespace Exchange.Application.Repositories
     {
         Task<Decimal> GetTransactionsAmount(string userId, string currencyName);
 
-        Task<TransactionResult> AddTransaction(ITransaction transaction);
+        Task<int> InsertTransaction(ITransaction transaction);
     }
 }

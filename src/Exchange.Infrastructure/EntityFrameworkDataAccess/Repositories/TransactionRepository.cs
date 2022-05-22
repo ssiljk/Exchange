@@ -29,7 +29,7 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Repositories
                                         .Select(t => t.Amount).SumAsync();
         }
 
-        public async Task<TransactionResult> AddTransaction(ITransaction transaction)
+        public async Task<int> InsertTransaction(ITransaction transaction)
         {
             Entities.Transaction entitiesTransaction = new Entities.Transaction();
 
@@ -39,11 +39,10 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Repositories
             entitiesTransaction.TransactionDate = transaction.DateTime;
 
             var result = await _context.Transactions.AddAsync(entitiesTransaction);
+          
+            await _context.SaveChangesAsync();
 
-            var resultSave = await _context.SaveChangesAsync();
-
-            TransactionResult transactionResult = new TransactionResult();
-            return transactionResult;
+            return result.Entity.Id; 
         }
     }
 }
