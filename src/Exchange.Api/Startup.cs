@@ -13,9 +13,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Exchange.Application.Queries;
 using Exchange.Application.ExternalApis;
+using Exchange.Application.Commands;
+using Exchange.Application.Repositories;
 using Exchange.Infrastructure.EntityFrameworkDataAccess;
 using Exchange.Infrastructure.EntityFrameworkDataAccess.Queries;
 using Exchange.Infrastructure.ExternalApis;
+using Exchange.Infrastructure.EntityFrameworkDataAccess.Commands;
+using Exchange.Infrastructure.EntityFrameworkDataAccess.Repositories;
+
 
 namespace Exchange.Api
 {
@@ -37,6 +42,8 @@ namespace Exchange.Api
             services.AddHttpClient();
             services.AddScoped<ICurrencyQuery, CurrencyQuery>();
             services.AddScoped<IBankApi, BankApi>();
+            services.AddScoped<IBuyCurrency, BuyCurrency>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
             
         }
 

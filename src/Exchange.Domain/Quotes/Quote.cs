@@ -11,6 +11,8 @@ namespace Exchange.Domain.Quotes
 
         public Decimal SaleValue { get; set; }
 
+        public Decimal TransactionLimit { get; set; }
+
         public DateTime DateTime { get; set; }
     }
 }

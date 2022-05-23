@@ -23,17 +23,50 @@ namespace Exchange.Api.Controllers
             _logger = logger;
         }
 
+        //[HttpGet]
+        //public IEnumerable<WeatherForecast> Get()
+        //{
+        //    var rng = new Random();
+        //    return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        //    {
+        //        Date = DateTime.Now.AddDays(index),
+        //        TemperatureC = rng.Next(-20, 55),
+        //        Summary = Summaries[rng.Next(Summaries.Length)]
+        //    })
+        //    .ToArray();
+        //}
+
+        //[Route("{daysForward}")]
+        //[HttpGet]
+        //public IActionResult Get([FromRoute] int daysForward)
+        //{
+        //    var rng = new Random();
+        //    return new JsonResult(new WeatherForecast
+        //    {
+        //        Date = DateTime.Now.AddDays(daysForward),
+        //        TemperatureC = rng.Next(-20, 55),
+        //        Summary = Summaries[rng.Next(Summaries.Length)]
+        //    });
+        //}
+
+        //[Route("{sortByTemperature}")]
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<WeatherForecast> Get([FromQuery] bool sortByTemperature = false)
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            });
+
+            if (sortByTemperature)
+            {
+                forecasts = forecasts.OrderByDescending(f => f.TemperatureC);
+            }
+
+            return forecasts;
         }
     }
 }
