@@ -23,6 +23,8 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Queries
                                               .Currencies
                                               .FirstOrDefaultAsync(c => c.Name == currencyName);
             //todo catch exception of currency not found
+            if (currency == null)
+                throw new CurrencyNotFoundException($"Currency {currencyName} is not being traded");
             CurrencyResult currencyResult = new CurrencyResult
                                             (currency.Name, currency.Url, currency.MaxLimit);
             return currencyResult;
