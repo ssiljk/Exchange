@@ -12,8 +12,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Exchange.Application.Queries;
+using Exchange.Application.ExternalApis;
 using Exchange.Infrastructure.EntityFrameworkDataAccess;
 using Exchange.Infrastructure.EntityFrameworkDataAccess.Queries;
+using Exchange.Infrastructure.ExternalApis;
 
 namespace Exchange.Api
 {
@@ -32,7 +34,10 @@ namespace Exchange.Api
             services.AddControllers();
             services.AddDbContext<Context>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHttpClient();
             services.AddScoped<ICurrencyQuery, CurrencyQuery>();
+            services.AddScoped<IBankApi, BankApi>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
