@@ -28,7 +28,9 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Commands
             decimal transactionAmount;
             var quote = await _bankApi.Get(currencyName);
             var transactionsAmount = await _transactionRepository.GetTransactionsAmount(userId, currencyName);
-            if((transactionsAmount + amountPesos/quote.SaleValue) <= quote.TransactionLimit)       
+            if(quote.SaleValue <= 0)
+                throw new InfrastructureException($"error in {nameof(quote.SaleValue)} = {quote.SaleValue}");
+            if ((transactionsAmount + amountPesos/quote.SaleValue) <= quote.TransactionLimit)       
                 transactionAmount = currencyName == "real" ? amountPesos / (quote.SaleValue / 4) : amountPesos / quote.SaleValue;
             else
                 return (new BuyResult { UserId = userId, CurrencyAmmount = -1 });
