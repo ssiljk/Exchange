@@ -27,7 +27,7 @@ namespace Exchange.Infrastructure.ExternalApis
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
             _currencyQuery = currencyQuery;
-    }
+        }
 
         public async Task<Quote> Get(string currencyName)
         {

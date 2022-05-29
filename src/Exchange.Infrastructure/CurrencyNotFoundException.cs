@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Exchange.Infrastructure
 {
-    class CurrencyNotFoundException : Exception
+    public class CurrencyNotFoundException : Exception
     {
         internal CurrencyNotFoundException(string message)
            : base(message)

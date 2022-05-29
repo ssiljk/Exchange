@@ -24,6 +24,9 @@ namespace Exchange.Infrastructure.EntityFrameworkDataAccess.Repositories
                                                      .Currencies
                                                      .FirstOrDefaultAsync(c => c.Name == currencyName);
 
+            if (entityCurrency == null)
+                throw new CurrencyNotFoundException($"Currency {currencyName} is not being traded");
+            
             Currency currency = new Currency();
             currency.Name = entityCurrency.Name;
             currency.Url = entityCurrency.Url;
