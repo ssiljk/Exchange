@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
 using Exchange.Application.Queries;
 using Exchange.Application.ExternalApis;
 using Exchange.Application.Commands;
@@ -36,6 +37,11 @@ namespace Exchange.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMvc(options => (solo para MVC no para apis, para apis mejor usar el middleware
+            //{
+            //    options.Filters.Add(typeof(ExceptionsFilter));
+            //    //options.Filters.Add(typeof(ValidateModelAttribute));
+            //});
             services.AddControllers();
             services.AddDbContext<Context>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -44,7 +50,7 @@ namespace Exchange.Api
             services.AddScoped<IBankApi, BankApi>();
             services.AddScoped<IBuyCurrency, BuyCurrency>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
-            
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +59,18 @@ namespace Exchange.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            if (!env.IsDevelopment())
+            {
+                app.UseExceptionHandler("/error");
+                //produces
+                //{
+                //    "type": "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+                //    "title": "An error occured while processing your request.",
+                //    "status": 500,
+                //    "traceId": "|9800749a-43617a92f40fd5f1."
+                //}
             }
 
             app.UseHttpsRedirection();

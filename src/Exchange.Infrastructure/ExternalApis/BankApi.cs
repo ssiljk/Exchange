@@ -36,6 +36,8 @@ namespace Exchange.Infrastructure.ExternalApis
             string url = currencyResult.QuoteUrl;
             string route = "Principal/";
             string query = currencyResult.CurrencyName;
+            if (query == "real")
+                query = "dolar";
             string requestString = $"{url}{route}{query}";
             var request = new HttpRequestMessage(HttpMethod.Get, requestString);
             request.Headers.Add("Accept", "application/json");
@@ -72,6 +74,10 @@ namespace Exchange.Infrastructure.ExternalApis
                 }
 
 
+            }
+            else
+            {
+                throw new InfrastructureException($"Bank API communication failed");
             }
             return quote;
         }
