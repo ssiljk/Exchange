@@ -1,13 +1,13 @@
 ﻿USE BDPRUEBA
 GO
 
---CREATE TABLE transactions (
---    ID INT PRIMARY KEY IDENTITY (1, 1),
---    userID VARCHAR (50) NOT NULL,
---    Amount DECIMAL(6,3),
---    CurrencyName VARCHAR (50) NOT NULL,
---    TransactionDate DATETIME
---);
+CREATE TABLE transactions (
+    ID INT PRIMARY KEY IDENTITY (1, 1),
+    userID VARCHAR (50) NOT NULL,
+    Amount DECIMAL(6,3),
+    CurrencyName VARCHAR (50) NOT NULL,
+    TransactionDate DATETIME
+);
 
 CREATE TABLE currencies (
    Id INT PRIMARY KEY IDENTITY (1, 1),
@@ -18,8 +18,8 @@ CREATE TABLE currencies (
 GO
 
 insert into currencies (Name, Url, MaxLimit)
-       values('dolar', 'https://www.bancoprovincia.com.ar/Principal/Dolar', 200);
+       values('dolar', 'https://www.bancoprovincia.com.ar/', 200);
 
 insert into currencies (Name, Url, MaxLimit)
-       values('real', 'https://www.bancoprovincia.com.ar/Principal/Dolar', 300);
+       values('real', 'https://www.bancoprovincia.com.ar/', 300);
 GO
