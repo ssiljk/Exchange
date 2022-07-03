@@ -1,12 +1,12 @@
 version: '3.4'
-
+# con este se arrancan los dos containers del backend
 services:
   exchange.api:
     image: exchangeapi2:dev
     environment:
-         - ASPNETCORE_ENVIRONMENT=Development
+         - ASPNETCORE_ENVIRONMENT=Staging
          - ASPNETCORE_URLS=https://+:443;http://+:80
-         - ASPNETCORE_Kestrel__Certificates__Default__Password=Lubitina
+         - ASPNETCORE_Kestrel__Certificates__Default__Password=xpassword
          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     ports:
             - "5000:80"
@@ -18,8 +18,8 @@ services:
   db:
     image: exch-db:dev
     
-    # ports:
-    #   - "1444:1433"
+    #ports:
+    #  - "1444:1433"
     volumes:
      - mssqldata:/var/opt/mssql
 

@@ -61,7 +61,7 @@ namespace Exchange.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            if (!env.IsDevelopment())
+            if (!env.IsDevelopment() && !env.IsStaging())
             {
                 app.UseExceptionHandler("/error");
                 //produces

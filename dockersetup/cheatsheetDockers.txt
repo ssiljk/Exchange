@@ -1,0 +1,142 @@
+dotnet publish -c Release -o publish
+
+Exchange.Api.dll
+
+docker build -t exchangeapp .
+
+
+docker run -it --rm -p 5000:80 --name myapp exchangeapp
+
+
+https://localhost:5001/api/quotes/dolar
+
+
+
+c:\Projects\Exchange>docker build -t exchangeapp .
+[+] Building 1.8s (8/8) FINISHED
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 164B                                                                               0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 34B                                                                                   0.0s
+ => [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:5.0                                               0.8s
+ => [internal] load build context                                                                                  0.1s
+ => => transferring context: 18.75kB                                                                               0.1s
+ => CACHED [1/3] FROM mcr.microsoft.com/dotnet/aspnet:5.0@sha256:1a7d811242f001673d5d25283b3af03da526de1ee8d3bb5a  0.0s
+ => [2/3] COPY publish/ app/                                                                                       0.5s
+ => [3/3] WORKDIR /app                                                                                             0.0s
+ => exporting to image                                                                                             0.2s
+ => => exporting layers                                                                                            0.2s
+ => => writing image sha256:bf2c4a7aa0a502e5cc90ba70b2a0c01ded42cc150cb1033740b56f736e3d19d0                       0.0s
+ => => naming to docker.io/library/exchangeapp                                                                     0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+
+
+5.10.16.3-microsoft-standard-WSL2
+
+#######   SQL SERVER     ######
+
+docker pull mcr.microsoft.com/mssql/server:2017-latest
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Mypassw0rd*" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2017-latest
+
+docker exec -t sql1 cat /var/opt/mssql/log/errorlog 
+
+sqlcmd -S localhost,1433 -U SA -P "Mypassw0rd*"
+
+CREATE DATABASE BDPRUEBA;
+GO
+USE BDPRUEBA;
+GO
+
+CREATE TABLE transactions (ID INT PRIMARY KEY IDENTITY (1, 1),userID VARCHAR (50) NOT NULL, Amount DECIMAL(6,3),CurrencyName VARCHAR (50) NOT NULL,TransactionDate DATETIME);
+GO
+CREATE TABLE currencies (Id INT PRIMARY KEY IDENTITY (1, 1), Name VARCHAR (10) NOT NULL,Url VARCHAR (2000) NOT NULL,MaxLimit DECIMAL(6,0));
+GO
+insert into currencies (Name, Url, MaxLimit) values('dolar', 'https://www.bancoprovincia.com.ar/Principal/Dolar', 200);
+GO
+insert into currencies (Name, Url, MaxLimit) values('real', 'https://www.bancoprovincia.com.ar/Principal/Dolar', 300);
+GO
+
+docker-compose up
+
+
+docker volume ls
+docker volume prune
+
+docker build -t exch-db:dev .
+docker build -t exch-webapi .
+
+docker tag exch-webapi ssiljk/exch-webapi:exch-webapi
+docker tag exchangeapi:dev ssiljk/exchangeapi:dev
+
+docker tag exch-db ssiljk/exch-db:exch-db
+
+docker push ssiljk/exch-db:exch-db
+docker push ssiljk/exch-webapi:exch-webapi
+
+docker push ssiljk/exch-webapi:exch-webapi
+
+docker pull ssiljk/exch-db:exch-db
+
+############   docker-compose en play-with-docker
+
+version: '3.4'
+
+services:
+  webapi:
+    image: ssiljk/exch-webapi:exch-webapi
+ 
+    ports:
+            - "5000:80"
+    depends_on:
+      - db
+  db:
+    image: ssiljk/exch-db:exch-db
+    
+    # ports:
+    #   - "1444:1433"
+    volumes:
+     - mssqldata:/var/opt/mssql
+
+volumes:
+  mssqldata:
+
+
+http://ip172-18-0-136-casbo414lkkg00bfo170-5000.direct.labs.play-with-docker.com:5000/api/quotes/dolar
+
+
+dotnet restore ./projects/app1/app1.csproj
+
+docker build -f "C:\Projects\Exchange\src\Exchange.Api\Dockerfile" --force-rm -t exchangeapi:dev --target base "C:\Projects\Exchange" 
+
+
+Name	Value
+PATH	/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ASPNETCORE_ENVIRONMENT	Development
+ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS	true
+ASPNETCORE_URLS	https://+:443;http://+:80
+DOTNET_RUNNING_IN_CONTAINER	true
+DOTNET_USE_POLLING_FILE_WATCHER	1
+NUGET_FALLBACK_PACKAGES	/root/.nuget/fallbackpackages
+NUGET_PACKAGES	/root/.nuget/fallbackpackages
+
+
+docker run --rm -p 8000:80 exchangeapi:dev
+
+docker run --rm -it -p 8000:80 -p 8001:443 -e ASPNETCORE_URLS="https://+:443;http://+:80" -e ASPNETCORE_ENVIRONMENT="Development"  exchangeapi2:dev
+
+docker run --rm -it -p 8000:80 -p 8001:443 -e ASPNETCORE_ENVIRONMENT="Development" -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=8001 -e ASPNETCORE_Kestrel__Certificates__Default__Password="Lubitina" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx -v %USERPROFILE%\.aspnet\https:/https/ exchangeapi2:dev
+
+docker-compose -f "docker-compose.debug.yml" up -d
+
+docker run --rm -it -p 1444:1433  exch-db:dev
+
+sqlcmd -S localhost,1444 -U sa -P Mypassw0rd*
+
+
+SELECT DB_ID(N'BDPRUEBA');  
+GO 
+
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Mypassw0rd*" -p 1433:1433 --name sql1 --hostname sql1 -d  exch-db:dev
